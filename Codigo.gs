@@ -25,7 +25,8 @@ function sequenceNumberOnFormSubmit(e){
   var destino = e.values[8];
   var alumno = e.values[9];
   var nombreAlumno = e.values[10];
-  
+
+
   var subject = `¡Gracias por contactarnos - CSH/Ticket ` +'#'+folio;
   
 	var plain_email_body = 
