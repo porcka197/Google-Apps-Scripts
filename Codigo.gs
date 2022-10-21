@@ -105,7 +105,7 @@ function enviarAsignado(){
 const libro1 = SpreadsheetApp.getActiveSpreadsheet();
 libro1.setActiveSheet(libro1.getSheetByName("Respuestas de formulario 1"));
 const hoja1 = SpreadsheetApp.getActiveSheet();
-const filas1 = hoja1.getRange("A3000:T5020").getValues();
+const filas1 = hoja1.getRange("A4000:T5020").getValues();
 
               for (indiceFilas in filas1){
                 var tecnico3 = crearTecnico(filas1[indiceFilas]);
@@ -305,7 +305,7 @@ function enviarCorreos() {
  const libro = SpreadsheetApp.getActiveSpreadsheet();
  libro.setActiveSheet(libro.getSheetByName("Respuestas de formulario 1"));
  const hoja = SpreadsheetApp.getActiveSheet();
- const filas = hoja.getRange("A3000:X5020").getValues();
+ const filas = hoja.getRange("A4000:T5020").getValues();
   
             for (indiceFila in filas) {
               var user = crearUser(filas[indiceFila]);
