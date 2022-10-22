@@ -305,7 +305,7 @@ function enviarCorreos() {
  const libro = SpreadsheetApp.getActiveSpreadsheet();
  libro.setActiveSheet(libro.getSheetByName("Respuestas de formulario 1"));
  const hoja = SpreadsheetApp.getActiveSheet();
- const filas = hoja.getRange("A4000:T5020").getValues();
+ const filas = hoja.getRange("A4000:X5020").getValues();
   
             for (indiceFila in filas) {
               var user = crearUser(filas[indiceFila]);
