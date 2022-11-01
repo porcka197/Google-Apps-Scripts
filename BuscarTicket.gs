@@ -2,8 +2,8 @@ function buscarValor(){
   var libro = SpreadsheetApp.getActiveSpreadsheet();
   var hoja1 = libro.getSheetByName("Dashboard");
   var hojaBuscar = libro.getSheetByName("Respuestas de formulario 1");
-  var ticket = hoja1.getRange('C71').getValue();
-  var tablaBuscar = hojaBuscar.getRange('F1:M5805').getValues();
+  var ticket = hoja1.getRange('C62').getValue();
+  var tablaBuscar = hojaBuscar.getRange('F1:N5805').getValues();
   // Logger.log(ticket);
   // Logger.log(tablaBuscar);
   var lista = tablaBuscar.map(function(fila){return fila[7]});
@@ -13,6 +13,14 @@ function buscarValor(){
 
   var solicitud = tablaBuscar[indice][0];
   // Logger.log(solicitud);
-  hoja1.getRange('C72:F72').setValue(solicitud);
+  hoja1.getRange('C63:F63').setValue(solicitud);
+  var atendidoPor = tablaBuscar[indice][8];
+  hoja1.getRange('C64:F64').setValue(atendidoPor);
   SpreadsheetApp.getActiveSpreadsheet().toast('Solicitud encontrada');
+}
+
+function limpiarDatos(){
+  SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange("C63:F63").clearContent();
+  SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange("C64:F64").clearContent();
+  SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange("C62").clearContent();
 }
