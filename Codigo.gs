@@ -140,6 +140,7 @@ function crearTecnico(datosFila) {
     enviar3: datosFila[19],
   };
   return tecnico4;
+  
 }
 
 function enviarTicket(tecnico4) {
@@ -289,7 +290,7 @@ function enviarTicket(tecnico4) {
 
   //************************************************Fin de Mensaje de Traslados (Asignado)*************************************************************************************************************************/
 
-  else { return; }
+  else { return;  }
 }
 
 //Función para agregar Menú
