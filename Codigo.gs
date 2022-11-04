@@ -46,10 +46,36 @@ function sequenceNumberOnFormSubmit(e) {
           <a href ="www.humanitas.edu.mx" target="_blanck"><img style="display: block; margin-left: auto; margin-right: auto;" src="https://clases.universidadhumanitas.edu.mx/Respuestas_Tickets/header.png" alt="Gracias por Contactarnos" width="800px" /></a>
           </div>
           <p style="text-align: center; font-family: Verdana;">Estimado(a) <strong>${name}</strong></p>
+          <p style="text-align: center; font-family: Verdana;">Campus: <strong>${campus}</strong></p>
           <p style="text-align: center; font-family: Verdana;">¡Gracias por contactar al Centro de Soporte Humanitas!</p>
           <p style="text-align: center; font-family: Verdana;">Registramos tu solicitud el día ${timestamp}</p>
           <p style="text-align: center; font-family: Verdana;">Tu solictud: <strong>${solicitud}</strong></p>
           <p style="text-align: center; font-family: Verdana;">Descripción: <strong>${descripcion}<br /></strong></p>
+          <p style="text-align: center; font-family: Verdana;">¡En breve nos pondremos en Contacto!</p>
+          <div style="text-align: center; padding-bottom: 5px; padding-top: 5px;">
+          <div>
+	        <div style="text-align: center; padding-top: 5px; padding-bottom: 5px;">
+          <p style="text-align: center; font-size: small; font-family: Verdana;">Síguenos en:</p>
+			    <a href = "https://qrco.de/bco5ww" target = "_blanck"><img src="https://clases.universidadhumanitas.edu.mx/Respuestas_Tickets/GoogleSites/qr.png" width="140px"/></a>
+	        </div>           
+          <div style="text-align: center; background-color: #b79b72;padding-top: 5px; padding-bottom: 5px;">
+          <p style="text-align: center; font-size: x-small; font-family: Verdana;color: white;">Copyright © 2022, Universidad Humanitas, Todos los derechos Reservados.</p>
+          </div>
+          </div>
+          </div>
+          </center>`;
+
+          var html_bodyCaptura = `<center>
+          <div style="text-align: center; background-color: #b79b72; width: 100%;">
+          <a href ="www.humanitas.edu.mx" target="_blanck"><img style="display: block; margin-left: auto; margin-right: auto;" src="https://clases.universidadhumanitas.edu.mx/Respuestas_Tickets/header.png" alt="Gracias por Contactarnos" width="800px" /></a>
+          </div>
+          <p style="text-align: center; font-family: Verdana;">Estimado(a) <strong>${name}</strong></p>
+          <p style="text-align: center; font-family: Verdana;">Campus: <strong>${campus}</strong></p>
+          <p style="text-align: center; font-family: Verdana;">¡Gracias por contactar al Centro de Soporte Humanitas!</p>
+          <p style="text-align: center; font-family: Verdana;">Registramos tu solicitud el día ${timestamp}</p>
+          <p style="text-align: center; font-family: Verdana;">Tu solictud: <strong>${solicitud}</strong></p>
+          <p style="text-align: center; font-family: Verdana;">Descripción: <strong>${descripcion}<br /></strong></p>
+          <p style="text-align: center; font-family: Verdana;">Descripción: <strong>${captura}<br /></strong></p>
           <p style="text-align: center; font-family: Verdana;">¡En breve nos pondremos en Contacto!</p>
           <div style="text-align: center; padding-bottom: 5px; padding-top: 5px;">
           <div>
@@ -92,12 +118,14 @@ function sequenceNumberOnFormSubmit(e) {
 
   var advancedOpts = { cc: "csh@humanitas.edu.mx", name: "Centro de Soporte Humanitas", htmlBody: html_body };
   var advanceOpts1 = { cc: "csh@humanitas.edu.mx", name: "Centro de Soporte Humanitas", htmlBody: html_bodyTraslados };
+  var advanceOpts2 = { cc: "csh@humanitas.edu.mx", name: "Centro de Soporte Humanitas", htmlBody: html_bodyCaptura };
   if (solicitud == "Traslados") {
     MailApp.sendEmail(mail, subject, plain_email_body, advanceOpts1);
   }
-  else {
+  else if (solicitud != "Traslados") {
     MailApp.sendEmail(mail, subject, plain_email_body, advancedOpts);
   }
+  else if (captura != ""){MailApp.sendEmail(mail, subject, plain_email_body, advanceOpts2);}
 }
 
 
@@ -107,7 +135,7 @@ function enviarAsignado() {
   const libro1 = SpreadsheetApp.getActiveSpreadsheet();
   libro1.setActiveSheet(libro1.getSheetByName("Respuestas de formulario 1"));
   const hoja1 = SpreadsheetApp.getActiveSheet();
-  const filas1 = hoja1.getRange("A4000:T5020").getValues();
+  const filas1 = hoja1.getRange("A4000:Y5020").getValues();
 
   for (indiceFilas in filas1) {
     var tecnico3 = crearTecnico(filas1[indiceFilas]);
@@ -138,9 +166,10 @@ function crearTecnico(datosFila) {
     colaboracion3: datosFila[17],
     solucion3: datosFila[18],
     enviar3: datosFila[19],
+    etiqueta: datosFila[24],
   };
   return tecnico4;
-  
+
 }
 
 function enviarTicket(tecnico4) {
@@ -290,7 +319,7 @@ function enviarTicket(tecnico4) {
 
   //************************************************Fin de Mensaje de Traslados (Asignado)*************************************************************************************************************************/
 
-  else { return;  }
+  else { return; }
 }
 
 //Función para agregar Menú
@@ -311,7 +340,7 @@ function enviarCorreos() {
   const libro = SpreadsheetApp.getActiveSpreadsheet();
   libro.setActiveSheet(libro.getSheetByName("Respuestas de formulario 1"));
   const hoja = SpreadsheetApp.getActiveSheet();
-  const filas = hoja.getRange("A4000:X5020").getValues();
+  const filas = hoja.getRange("A4000:Y5020").getValues();
 
   for (indiceFila in filas) {
     var user = crearUser(filas[indiceFila]);
@@ -344,6 +373,7 @@ function crearUser(datosFila) {
     solucion2: datosFila[18],
     enviar2: datosFila[19],
     comentarios: datosFila[23],
+    etiqueta2: datosFila[24],
   };
   return user;
 }

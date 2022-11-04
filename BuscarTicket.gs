@@ -1,12 +1,22 @@
+/**------------------ Al editar ------------------------------------------------------------- */
+
+function onEdit(e){
+  
+  if (celda == "C62"){buscarValor();}
+  // else if (celda != "C62"){limpiarDatos();}
+
+}
+
+/**-----------------------------------Buscar tickets ---------------------------------------- */
 function buscarValor() {
   var libro = SpreadsheetApp.getActiveSpreadsheet();
   var hoja1 = libro.getSheetByName("Dashboard");
   var hojaBuscar = libro.getSheetByName("Respuestas de formulario 1");
   var ticket = hoja1.getRange('C62').getValue();
-  var tablaBuscar = hojaBuscar.getRange('F3000:NO5805').getValues();
+  var tablaBuscar = hojaBuscar.getRange('F1600:O5805').getValues();
   // Logger.log(ticket);
   // Logger.log(tablaBuscar);
-  var lista = tablaBuscar.map(function (fila) { return fila[7] });
+  var lista = tablaBuscar.map(function (fila) { return fila[6] });
   // Logger.log(lista);
   var indice = lista.indexOf(ticket);
   // Logger.log(indice);
@@ -27,9 +37,12 @@ function buscarValor() {
   }
 }
 
+/**-----------------------------------Borrar datos ---------------------------------------- */
+
 function limpiarDatos() {
   SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange("C63:F63").clearContent();
   SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange("C64:F64").clearContent();
   SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange("C65:F65").clearContent();
   SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange("C62").clearContent();
+  SpreadsheetApp.getActiveSpreadsheet().toast('Nueva búsqueda');
 }
