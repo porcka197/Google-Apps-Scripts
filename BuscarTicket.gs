@@ -2,8 +2,10 @@
 
 function onEdit(e){
   
-  if (celda == "C62"){buscarValor();}
-  // else if (celda != "C62"){limpiarDatos();}
+  
+
+  // if (celda == "C62"){buscarValor();}
+  // // else if (celda != "C62"){limpiarDatos();}
 
 }
 
@@ -14,15 +16,16 @@ function buscarValor() {
   var hojaBuscar = libro.getSheetByName("Respuestas de formulario 1");
   var ticket = hoja1.getRange('C62').getValue();
   var tablaBuscar = hojaBuscar.getRange('F1600:O5805').getValues();
-  // Logger.log(ticket);
+  
+  // Logger.log(typeof(ticket));
   // Logger.log(tablaBuscar);
   var lista = tablaBuscar.map(function (fila) { return fila[6] });
   // Logger.log(lista);
   var indice = lista.indexOf(ticket);
   // Logger.log(indice);
 
-  if (ticket == "") {
-    SpreadsheetApp.getUi().alert('Debes colocar un ticket para buscar');
+  if (typeof(ticket) == "string") {
+    SpreadsheetApp.getUi().alert('Debes colocar el número ticket para buscar');
   }
 
   else {
