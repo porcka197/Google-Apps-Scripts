@@ -382,9 +382,116 @@ function crearUser(datosFila) {
 function enviarCorreo2(user) {
   if (user.mail2 == "") { return; }
 
-  /*****************************************************************Enviar en Espera **************************************************************************** */
+  // /*------------------------Mensajes de Ricardo Inicio -----------------------------------------------------------------*/
 
-  if (user.estatus2 == "En Espera" && user.enviar2 == "No") {
+  // if (user.estatus2 == "En Espera" && user.enviar2 == "No" && user.tecnico2 == "Ricardo Porcayo") {
+  //   const plantilla = HtmlService.createTemplateFromFile('en_espera');
+  //   plantilla.user = user;
+  //   const mensaje = plantilla.evaluate().getContent();
+
+  //   MailApp.sendEmail({
+  //     name: "Centro de Soporte Humanitas",
+  //     recipient: "soporte@humanitas.edu.mx",
+  //     to: user.mail2,
+  //     cc: "ricardo.porcayo@humanitas.edu.mx",
+  //     subject: "Ticket #" + user.folio2 + " - " + user.estatus2,
+  //     htmlBody: mensaje
+  //   });
+  // }
+
+  // if (user.estatus2 == "Solucionado" && user.enviar2 == "No" && user.tecnico2 == "Ricardo Porcayo") {
+  //   const plantilla = HtmlService.createTemplateFromFile('solucionado');
+  //   plantilla.user = user;
+  //   const mensaje = plantilla.evaluate().getContent();
+
+  //   MailApp.sendEmail({
+  //     name: "Centro de Soporte Humanitas",
+  //     recipient: "soporte@humanitas.edu.mx",
+  //     to: user.mail2,
+  //     cc: "ricardo.porcayo@humanitas.edu.mx",
+  //     subject: "Ticket #" + user.folio2 + " - " + user.estatus2,
+  //     htmlBody: mensaje
+  //   });
+  // }
+
+  // if (user.estatus2 == "En Progreso" && user.enviar2 == "No" && user.solicitud2 != "Traslados" && user.tecnico2 == "Ricardo Porcayo") {
+  //   const plantilla = HtmlService.createTemplateFromFile('progreso');
+  //   plantilla.user = user;
+  //   const mensaje = plantilla.evaluate().getContent();
+
+  //   MailApp.sendEmail({
+  //     name: "Centro de Soporte Humanitas",
+  //     recipient: "soporte@humanitas.edu.mx",
+  //     to: user.mail2,
+  //     cc: "ricardo.porcayo@humanitas.edu.mx",
+  //     subject: "Ticket #" + user.folio2 + " - " + user.estatus2,
+  //     htmlBody: mensaje
+  //   });
+  // }
+
+  // if (user.estatus2 == "En Progreso" && user.enviar2 == "No" && user.solicitud2 == "Traslados" && user.tecnico2 == "Ricardo Porcayo") {
+  //   const plantilla = HtmlService.createTemplateFromFile('progreso_traslado');
+  //   plantilla.user = user;
+  //   const mensaje = plantilla.evaluate().getContent();
+
+  //   MailApp.sendEmail({
+  //     name: "Centro de Soporte Humanitas",
+  //     recipient: "soporte@humanitas.edu.mx",
+  //     to: user.mail2,
+  //     cc: "ricardo.porcayo@humanitas.edu.mx",
+  //     subject: "Ticket #" + user.folio2 + " - " + user.estatus2,
+  //     htmlBody: mensaje
+  //   });
+  // }
+
+  // if (user.estatus2 == "Cancelado por Tiempo" && user.enviar2 == "No" && user.tecnico2 == "Ricardo Porcayo") {
+  //   const plantilla = HtmlService.createTemplateFromFile('cancelado_tiempo');
+  //   plantilla.user = user;
+  //   const mensaje = plantilla.evaluate().getContent();
+
+  //   MailApp.sendEmail({
+  //     name: "Centro de Soporte Humanitas",
+  //     recipient: "soporte@humanitas.edu.mx",
+  //     to: user.mail2,
+  //     cc: "ricardo.porcayo@humanitas.edu.mx",
+  //     subject: "Ticket #" + user.folio2 + " - " + user.estatus2,
+  //     htmlBody: mensaje
+  //   });
+  // }
+
+  // if (user.estatus2 == "Cancelado" && user.enviar2 == "No" && user.tecnico2 == "Ricardo Porcayo") {
+  //   const plantilla = HtmlService.createTemplateFromFile('cancelado');
+  //   plantilla.user = user;
+  //   const mensaje = plantilla.evaluate().getContent();
+
+  //   MailApp.sendEmail({
+  //     name: "Centro de Soporte Humanitas",
+  //     recipient: "soporte@humanitas.edu.mx",
+  //     to: user.mail2,
+  //     cc: "ricardo.porcayo@humanitas.edu.mx",
+  //     subject: "Ticket #" + user.folio2 + " - " + user.estatus2,
+  //     htmlBody: mensaje
+  //   });
+  // }
+
+  // if (user.estatus2 == "Duplicado" && user.enviar2 == "No" && user.tecnico2 == "Ricardo Porcayo") {
+  //   const plantilla = HtmlService.createTemplateFromFile('duplicado');
+  //   plantilla.user = user;
+  //   const mensaje = plantilla.evaluate().getContent();
+
+  //   MailApp.sendEmail({
+  //     name: "Centro de Soporte Humanitas",
+  //     recipient: "soporte@humanitas.edu.mx",
+  //     to: user.mail2,
+  //     cc: "ricardo.porcayo@humanitas.edu.mx",
+  //     subject: "Ticket #" + user.folio2 + " - " + user.estatus2,
+  //     htmlBody: mensaje
+  //   });
+  // }
+
+  // /*------------------------Mensajes de Ricardo Fin -----------------------------------------------------------------*/
+
+  if (user.estatus2 == "En Espera" && user.enviar2 == "No" && user.tecnico2) {
     const plantilla = HtmlService.createTemplateFromFile('en_espera');
     plantilla.user = user;
     const mensaje = plantilla.evaluate().getContent();
@@ -397,114 +504,6 @@ function enviarCorreo2(user) {
       htmlBody: mensaje
     });
   }
-  /*---------------------Mensajes de Ricardo --------------------------------------------------------------------------------------------------------------------------------*/
-
-  if (user.estatus2 == "En Espera" && user.enviar2 == "No" && user.tecnico2 == "Ricardo Porcayo") {
-    const plantilla = HtmlService.createTemplateFromFile('en_espera');
-    plantilla.user = user;
-    const mensaje = plantilla.evaluate().getContent();
-
-    MailApp.sendEmail({
-      name: "Centro de Soporte Humanitas",
-      recipient: "soporte@humanitas.edu.mx",
-      to: user.mail2,
-      cc: "ricardo.porcayo@humanitas.edu.mx",
-      subject: "Ticket #" + user.folio2 + " - " + user.estatus2,
-      htmlBody: mensaje
-    });
-  }
-
-  if (user.estatus2 == "Solucionado" && user.enviar2 == "No" && user.tecnico2 == "Ricardo Porcayo") {
-    const plantilla = HtmlService.createTemplateFromFile('solucionado');
-    plantilla.user = user;
-    const mensaje = plantilla.evaluate().getContent();
-
-    MailApp.sendEmail({
-      name: "Centro de Soporte Humanitas",
-      recipient: "soporte@humanitas.edu.mx",
-      to: user.mail2,
-      cc: "ricardo.porcayo@humanitas.edu.mx",
-      subject: "Ticket #" + user.folio2 + " - " + user.estatus2,
-      htmlBody: mensaje
-    });
-  }
-
-  if (user.estatus2 == "En Progreso" && user.enviar2 == "No" && user.solicitud2 != "Traslados" && user.tecnico2 == "Ricardo Porcayo") {
-    const plantilla = HtmlService.createTemplateFromFile('progreso');
-    plantilla.user = user;
-    const mensaje = plantilla.evaluate().getContent();
-
-    MailApp.sendEmail({
-      name: "Centro de Soporte Humanitas",
-      recipient: "soporte@humanitas.edu.mx",
-      to: user.mail2,
-      cc: "ricardo.porcayo@humanitas.edu.mx",
-      subject: "Ticket #" + user.folio2 + " - " + user.estatus2,
-      htmlBody: mensaje
-    });
-  }
-
-  if (user.estatus2 == "En Progreso" && user.enviar2 == "No" && user.solicitud2 == "Traslados" && user.tecnico2 == "Ricardo Porcayo") {
-    const plantilla = HtmlService.createTemplateFromFile('progreso_traslado');
-    plantilla.user = user;
-    const mensaje = plantilla.evaluate().getContent();
-
-    MailApp.sendEmail({
-      name: "Centro de Soporte Humanitas",
-      recipient: "soporte@humanitas.edu.mx",
-      to: user.mail2,
-      cc: "ricardo.porcayo@humanitas.edu.mx",
-      subject: "Ticket #" + user.folio2 + " - " + user.estatus2,
-      htmlBody: mensaje
-    });
-  }
-
-  if (user.estatus2 == "Cancelado por Tiempo" && user.enviar2 == "No" && user.tecnico2 == "Ricardo Porcayo") {
-    const plantilla = HtmlService.createTemplateFromFile('cancelado_tiempo');
-    plantilla.user = user;
-    const mensaje = plantilla.evaluate().getContent();
-
-    MailApp.sendEmail({
-      name: "Centro de Soporte Humanitas",
-      recipient: "soporte@humanitas.edu.mx",
-      to: user.mail2,
-      cc: "ricardo.porcayo@humanitas.edu.mx",
-      subject: "Ticket #" + user.folio2 + " - " + user.estatus2,
-      htmlBody: mensaje
-    });
-  }
-
-  if (user.estatus2 == "Cancelado" && user.enviar2 == "No" && user.tecnico2 == "Ricardo Porcayo") {
-    const plantilla = HtmlService.createTemplateFromFile('cancelado');
-    plantilla.user = user;
-    const mensaje = plantilla.evaluate().getContent();
-
-    MailApp.sendEmail({
-      name: "Centro de Soporte Humanitas",
-      recipient: "soporte@humanitas.edu.mx",
-      to: user.mail2,
-      cc: "ricardo.porcayo@humanitas.edu.mx",
-      subject: "Ticket #" + user.folio2 + " - " + user.estatus2,
-      htmlBody: mensaje
-    });
-  }
-
-  if (user.estatus2 == "Duplicado" && user.enviar2 == "No" && user.tecnico2 == "Ricardo Porcayo") {
-    const plantilla = HtmlService.createTemplateFromFile('duplicado');
-    plantilla.user = user;
-    const mensaje = plantilla.evaluate().getContent();
-
-    MailApp.sendEmail({
-      name: "Centro de Soporte Humanitas",
-      recipient: "soporte@humanitas.edu.mx",
-      to: user.mail2,
-      cc: "ricardo.porcayo@humanitas.edu.mx",
-      subject: "Ticket #" + user.folio2 + " - " + user.estatus2,
-      htmlBody: mensaje
-    });
-  }
-
-  /*----------------------------- Fin mensajes Ricardo --------------------------------------------------------------------------------------------------------------------------------*/
 
   if (user.estatus2 == "Solucionado" && user.enviar2 == "No") {
     const plantilla = HtmlService.createTemplateFromFile('solucionado');
@@ -593,6 +592,8 @@ function enviarCorreo2(user) {
   else { return user; }
 }
 
+/*----------------------------- Fin mensajes enviados --------------------------------------------------------------------------------------------------------------------------------*/
+
 //Función para horas y fechas
 function horaAsignado() {
   var incidencias = SpreadsheetApp.getActiveSpreadsheet();
@@ -613,6 +614,7 @@ function horaAsignado() {
   }
 }
 
+/*------------------------------------ Al editar celdas se agrega hora y se eliminan los datos a buscar -------------------------------------*/
 
 function onEdit(e) {
   horaAsignado();
