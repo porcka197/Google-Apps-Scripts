@@ -65,7 +65,7 @@ function sequenceNumberOnFormSubmit(e) {
           </div>
           </center>`;
 
-          var html_bodyCaptura = `<center>
+  var html_bodyCaptura = `<center>
           <div style="text-align: center; background-color: #b79b72; width: 100%;">
           <a href ="www.humanitas.edu.mx" target="_blanck"><img style="display: block; margin-left: auto; margin-right: auto;" src="https://clases.universidadhumanitas.edu.mx/Respuestas_Tickets/header.png" alt="Gracias por Contactarnos" width="800px" /></a>
           </div>
@@ -125,7 +125,7 @@ function sequenceNumberOnFormSubmit(e) {
   else if (solicitud != "Traslados") {
     MailApp.sendEmail(mail, subject, plain_email_body, advancedOpts);
   }
-  else if (captura != ""){MailApp.sendEmail(mail, subject, plain_email_body, advanceOpts2);}
+  else if (captura != "") { MailApp.sendEmail(mail, subject, plain_email_body, advanceOpts2); }
 }
 
 
@@ -173,7 +173,7 @@ function crearTecnico(datosFila) {
 }
 
 function enviarTicket(tecnico4) {
-  if (tecnico4.mail3 == "") return;
+  if (tecnico4.mail3 == "") { return; }
 
   if (tecnico4.tecnico3 == "Ricardo Porcayo" && tecnico4.solicitud3 != "Traslados" && tecnico4.enviar3 == "No") {
     const plantilla = HtmlService.createTemplateFromFile('asignado');
@@ -380,7 +380,7 @@ function crearUser(datosFila) {
 
 
 function enviarCorreo2(user) {
-  if (user.mail2 == "") return;
+  if (user.mail2 == "") { return; }
 
   /*****************************************************************Enviar en Espera **************************************************************************** */
 
@@ -397,6 +397,114 @@ function enviarCorreo2(user) {
       htmlBody: mensaje
     });
   }
+  /*---------------------Mensajes de Ricardo --------------------------------------------------------------------------------------------------------------------------------*/
+
+  if (user.estatus2 == "En Espera" && user.enviar2 == "No" && user.tecnico2 == "Ricardo Porcayo") {
+    const plantilla = HtmlService.createTemplateFromFile('en_espera');
+    plantilla.user = user;
+    const mensaje = plantilla.evaluate().getContent();
+
+    MailApp.sendEmail({
+      name: "Centro de Soporte Humanitas",
+      recipient: "soporte@humanitas.edu.mx",
+      to: user.mail2,
+      cc: "ricardo.porcayo@humanitas.edu.mx",
+      subject: "Ticket #" + user.folio2 + " - " + user.estatus2,
+      htmlBody: mensaje
+    });
+  }
+
+  if (user.estatus2 == "Solucionado" && user.enviar2 == "No" && user.tecnico2 == "Ricardo Porcayo") {
+    const plantilla = HtmlService.createTemplateFromFile('solucionado');
+    plantilla.user = user;
+    const mensaje = plantilla.evaluate().getContent();
+
+    MailApp.sendEmail({
+      name: "Centro de Soporte Humanitas",
+      recipient: "soporte@humanitas.edu.mx",
+      to: user.mail2,
+      cc: "ricardo.porcayo@humanitas.edu.mx",
+      subject: "Ticket #" + user.folio2 + " - " + user.estatus2,
+      htmlBody: mensaje
+    });
+  }
+
+  if (user.estatus2 == "En Progreso" && user.enviar2 == "No" && user.solicitud2 != "Traslados" && user.tecnico2 == "Ricardo Porcayo") {
+    const plantilla = HtmlService.createTemplateFromFile('progreso');
+    plantilla.user = user;
+    const mensaje = plantilla.evaluate().getContent();
+
+    MailApp.sendEmail({
+      name: "Centro de Soporte Humanitas",
+      recipient: "soporte@humanitas.edu.mx",
+      to: user.mail2,
+      cc: "ricardo.porcayo@humanitas.edu.mx",
+      subject: "Ticket #" + user.folio2 + " - " + user.estatus2,
+      htmlBody: mensaje
+    });
+  }
+
+  if (user.estatus2 == "En Progreso" && user.enviar2 == "No" && user.solicitud2 == "Traslados" && user.tecnico2 == "Ricardo Porcayo") {
+    const plantilla = HtmlService.createTemplateFromFile('progreso_traslado');
+    plantilla.user = user;
+    const mensaje = plantilla.evaluate().getContent();
+
+    MailApp.sendEmail({
+      name: "Centro de Soporte Humanitas",
+      recipient: "soporte@humanitas.edu.mx",
+      to: user.mail2,
+      cc: "ricardo.porcayo@humanitas.edu.mx",
+      subject: "Ticket #" + user.folio2 + " - " + user.estatus2,
+      htmlBody: mensaje
+    });
+  }
+
+  if (user.estatus2 == "Cancelado por Tiempo" && user.enviar2 == "No" && user.tecnico2 == "Ricardo Porcayo") {
+    const plantilla = HtmlService.createTemplateFromFile('cancelado_tiempo');
+    plantilla.user = user;
+    const mensaje = plantilla.evaluate().getContent();
+
+    MailApp.sendEmail({
+      name: "Centro de Soporte Humanitas",
+      recipient: "soporte@humanitas.edu.mx",
+      to: user.mail2,
+      cc: "ricardo.porcayo@humanitas.edu.mx",
+      subject: "Ticket #" + user.folio2 + " - " + user.estatus2,
+      htmlBody: mensaje
+    });
+  }
+
+  if (user.estatus2 == "Cancelado" && user.enviar2 == "No" && user.tecnico2 == "Ricardo Porcayo") {
+    const plantilla = HtmlService.createTemplateFromFile('cancelado');
+    plantilla.user = user;
+    const mensaje = plantilla.evaluate().getContent();
+
+    MailApp.sendEmail({
+      name: "Centro de Soporte Humanitas",
+      recipient: "soporte@humanitas.edu.mx",
+      to: user.mail2,
+      cc: "ricardo.porcayo@humanitas.edu.mx",
+      subject: "Ticket #" + user.folio2 + " - " + user.estatus2,
+      htmlBody: mensaje
+    });
+  }
+
+  if (user.estatus2 == "Duplicado" && user.enviar2 == "No" && user.tecnico2 == "Ricardo Porcayo") {
+    const plantilla = HtmlService.createTemplateFromFile('duplicado');
+    plantilla.user = user;
+    const mensaje = plantilla.evaluate().getContent();
+
+    MailApp.sendEmail({
+      name: "Centro de Soporte Humanitas",
+      recipient: "soporte@humanitas.edu.mx",
+      to: user.mail2,
+      cc: "ricardo.porcayo@humanitas.edu.mx",
+      subject: "Ticket #" + user.folio2 + " - " + user.estatus2,
+      htmlBody: mensaje
+    });
+  }
+
+  /*----------------------------- Fin mensajes Ricardo --------------------------------------------------------------------------------------------------------------------------------*/
 
   if (user.estatus2 == "Solucionado" && user.enviar2 == "No") {
     const plantilla = HtmlService.createTemplateFromFile('solucionado');
@@ -505,6 +613,11 @@ function horaAsignado() {
   }
 }
 
-function onEdit() {
+
+function onEdit(e) {
   horaAsignado();
+  var dir = e.range.getA1Notation();
+  if (dir == "C62") {
+    buscarValor();
+  }
 }
