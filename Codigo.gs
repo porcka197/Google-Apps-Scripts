@@ -7,9 +7,10 @@ function addSequenceNumber() {
   // Sequence number (record) minus 1, this is due to the headers
   var record = row - 1;
   // Set (or write) the sequence number in the cell specified, change number 4 for the rigth column
-  sheet.getRange(row, 12).setValue(record);
+  sheet.getRange(row, 14).setValue(record);
   // Return the sequence number
   return record;
+  // Logger.log(record);
 }
 function sequenceNumberOnFormSubmit(e) {
   // Call the function that generates the sequence number
@@ -135,7 +136,8 @@ function enviarAsignado() {
   const libro1 = SpreadsheetApp.getActiveSpreadsheet();
   libro1.setActiveSheet(libro1.getSheetByName("Respuestas de formulario 1"));
   const hoja1 = SpreadsheetApp.getActiveSheet();
-  const filas1 = hoja1.getRange("A4000:Y5020").getValues();
+  const ultFila = hoja1.getLastRow();
+  const filas1 = hoja1.getRange("A5000:Y" + ultFila).getValues();
 
   for (indiceFilas in filas1) {
     var tecnico3 = crearTecnico(filas1[indiceFilas]);
@@ -152,20 +154,20 @@ function crearTecnico(datosFila) {
     name3: datosFila[3],
     solicitud3: datosFila[4],
     descripcion3: datosFila[5],
-    captura3: datosFila[6],
     campusOrigen3: datosFila[7],
     campusDestino3: datosFila[8],
     matricula3: datosFila[9],
     nameAlumno3: datosFila[10],
-    ticket3: datosFila[11],
-    folio3: datosFila[12],
-    tecnico3: datosFila[13],
-    estatus3: datosFila[14],
-    atencion3: datosFila[15],
-    prior3: datosFila[16],
+    carrera: datosFila[11],
+    bloque3: datosFila[12],
+    ticket3: datosFila[13],
+    folio3: datosFila[14],
+    tecnico3: datosFila[15],
+    estatus3: datosFila[16],
     colaboracion3: datosFila[17],
     solucion3: datosFila[18],
     enviar3: datosFila[19],
+    comentarios: datosFila[23],
     etiqueta: datosFila[24],
   };
   return tecnico4;
@@ -340,7 +342,8 @@ function enviarCorreos() {
   const libro = SpreadsheetApp.getActiveSpreadsheet();
   libro.setActiveSheet(libro.getSheetByName("Respuestas de formulario 1"));
   const hoja = SpreadsheetApp.getActiveSheet();
-  const filas = hoja.getRange("A4000:Y5020").getValues();
+  const ulFila = hoja.getLastRow();
+  const filas = hoja.getRange("A4000:Y" + ulFila).getValues();
 
   for (indiceFila in filas) {
     var user = crearUser(filas[indiceFila]);
@@ -358,17 +361,16 @@ function crearUser(datosFila) {
     name2: datosFila[3],
     solicitud2: datosFila[4],
     descripcion2: datosFila[5],
-    captura2: datosFila[6],
     campusOrigen2: datosFila[7],
     campusDestino2: datosFila[8],
     matricula2: datosFila[9],
     nameAlumno2: datosFila[10],
-    ticket2: datosFila[11],
-    folio2: datosFila[12],
-    tecnico2: datosFila[13],
-    estatus2: datosFila[14],
-    atencion2: datosFila[15],
-    prior2: datosFila[16],
+    carrera2: datosFila[11],
+    bloque2: datosFila[12],
+    ticket2: datosFila[13],
+    folio2: datosFila[14],
+    tecnico2: datosFila[15],
+    estatus2: datosFila[16],
     colaboracion2: datosFila[17],
     solucion2: datosFila[18],
     enviar2: datosFila[19],
@@ -382,116 +384,22 @@ function crearUser(datosFila) {
 function enviarCorreo2(user) {
   if (user.mail2 == "") { return; }
 
-  // /*------------------------Mensajes de Ricardo Inicio -----------------------------------------------------------------*/
+  if (user.estatus2 == "Por Autorizar" && user.enviar2 == "No") {
+    const plantilla = HtmlService.createTemplateFromFile('por_autorizar');
+    plantilla.user = user;
+    const mensaje = plantilla.evaluate().getContent();
 
-  // if (user.estatus2 == "En Espera" && user.enviar2 == "No" && user.tecnico2 == "Ricardo Porcayo") {
-  //   const plantilla = HtmlService.createTemplateFromFile('en_espera');
-  //   plantilla.user = user;
-  //   const mensaje = plantilla.evaluate().getContent();
+    MailApp.sendEmail({
+      name: "Centro de Soporte Humanitas",
+      recipient: "soporte@humanitas.edu.mx",
+      to: "ana@humanitas.edu.mx",
+      cc: user.mail2 + ", csh@humanitas.edu.mx",
+      subject: "Ticket #" + user.folio2 + " - " + user.estatus2,
+      htmlBody: mensaje
+    });
+  }
 
-  //   MailApp.sendEmail({
-  //     name: "Centro de Soporte Humanitas",
-  //     recipient: "soporte@humanitas.edu.mx",
-  //     to: user.mail2,
-  //     cc: "ricardo.porcayo@humanitas.edu.mx",
-  //     subject: "Ticket #" + user.folio2 + " - " + user.estatus2,
-  //     htmlBody: mensaje
-  //   });
-  // }
-
-  // if (user.estatus2 == "Solucionado" && user.enviar2 == "No" && user.tecnico2 == "Ricardo Porcayo") {
-  //   const plantilla = HtmlService.createTemplateFromFile('solucionado');
-  //   plantilla.user = user;
-  //   const mensaje = plantilla.evaluate().getContent();
-
-  //   MailApp.sendEmail({
-  //     name: "Centro de Soporte Humanitas",
-  //     recipient: "soporte@humanitas.edu.mx",
-  //     to: user.mail2,
-  //     cc: "ricardo.porcayo@humanitas.edu.mx",
-  //     subject: "Ticket #" + user.folio2 + " - " + user.estatus2,
-  //     htmlBody: mensaje
-  //   });
-  // }
-
-  // if (user.estatus2 == "En Progreso" && user.enviar2 == "No" && user.solicitud2 != "Traslados" && user.tecnico2 == "Ricardo Porcayo") {
-  //   const plantilla = HtmlService.createTemplateFromFile('progreso');
-  //   plantilla.user = user;
-  //   const mensaje = plantilla.evaluate().getContent();
-
-  //   MailApp.sendEmail({
-  //     name: "Centro de Soporte Humanitas",
-  //     recipient: "soporte@humanitas.edu.mx",
-  //     to: user.mail2,
-  //     cc: "ricardo.porcayo@humanitas.edu.mx",
-  //     subject: "Ticket #" + user.folio2 + " - " + user.estatus2,
-  //     htmlBody: mensaje
-  //   });
-  // }
-
-  // if (user.estatus2 == "En Progreso" && user.enviar2 == "No" && user.solicitud2 == "Traslados" && user.tecnico2 == "Ricardo Porcayo") {
-  //   const plantilla = HtmlService.createTemplateFromFile('progreso_traslado');
-  //   plantilla.user = user;
-  //   const mensaje = plantilla.evaluate().getContent();
-
-  //   MailApp.sendEmail({
-  //     name: "Centro de Soporte Humanitas",
-  //     recipient: "soporte@humanitas.edu.mx",
-  //     to: user.mail2,
-  //     cc: "ricardo.porcayo@humanitas.edu.mx",
-  //     subject: "Ticket #" + user.folio2 + " - " + user.estatus2,
-  //     htmlBody: mensaje
-  //   });
-  // }
-
-  // if (user.estatus2 == "Cancelado por Tiempo" && user.enviar2 == "No" && user.tecnico2 == "Ricardo Porcayo") {
-  //   const plantilla = HtmlService.createTemplateFromFile('cancelado_tiempo');
-  //   plantilla.user = user;
-  //   const mensaje = plantilla.evaluate().getContent();
-
-  //   MailApp.sendEmail({
-  //     name: "Centro de Soporte Humanitas",
-  //     recipient: "soporte@humanitas.edu.mx",
-  //     to: user.mail2,
-  //     cc: "ricardo.porcayo@humanitas.edu.mx",
-  //     subject: "Ticket #" + user.folio2 + " - " + user.estatus2,
-  //     htmlBody: mensaje
-  //   });
-  // }
-
-  // if (user.estatus2 == "Cancelado" && user.enviar2 == "No" && user.tecnico2 == "Ricardo Porcayo") {
-  //   const plantilla = HtmlService.createTemplateFromFile('cancelado');
-  //   plantilla.user = user;
-  //   const mensaje = plantilla.evaluate().getContent();
-
-  //   MailApp.sendEmail({
-  //     name: "Centro de Soporte Humanitas",
-  //     recipient: "soporte@humanitas.edu.mx",
-  //     to: user.mail2,
-  //     cc: "ricardo.porcayo@humanitas.edu.mx",
-  //     subject: "Ticket #" + user.folio2 + " - " + user.estatus2,
-  //     htmlBody: mensaje
-  //   });
-  // }
-
-  // if (user.estatus2 == "Duplicado" && user.enviar2 == "No" && user.tecnico2 == "Ricardo Porcayo") {
-  //   const plantilla = HtmlService.createTemplateFromFile('duplicado');
-  //   plantilla.user = user;
-  //   const mensaje = plantilla.evaluate().getContent();
-
-  //   MailApp.sendEmail({
-  //     name: "Centro de Soporte Humanitas",
-  //     recipient: "soporte@humanitas.edu.mx",
-  //     to: user.mail2,
-  //     cc: "ricardo.porcayo@humanitas.edu.mx",
-  //     subject: "Ticket #" + user.folio2 + " - " + user.estatus2,
-  //     htmlBody: mensaje
-  //   });
-  // }
-
-  // /*------------------------Mensajes de Ricardo Fin -----------------------------------------------------------------*/
-
-  if (user.estatus2 == "En Espera" && user.enviar2 == "No" && user.tecnico2) {
+  if (user.estatus2 == "En Espera" && user.enviar2 == "No") {
     const plantilla = HtmlService.createTemplateFromFile('en_espera');
     plantilla.user = user;
     const mensaje = plantilla.evaluate().getContent();
@@ -603,9 +511,9 @@ function horaAsignado() {
   var filaActiva = activa.getRow();
   var colActiva = activa.getColumn();
 
-  if (filaActiva >= 2 && (colActiva == 14 || colActiva == 15) && incidencias.getActiveSheet().getName() == "Respuestas de formulario 1") {
-    if (activa.offset(0, 7).getValue()) { return; }
-    else { activa.offset(0, 7).setValue(new Date()); }
+  if (filaActiva >= 2 && (colActiva == 16 || colActiva == 17) && incidencias.getActiveSheet().getName() == "Respuestas de formulario 1") {
+    if (activa.offset(0, 5).getValue()) { return; }
+    else { activa.offset(0, 5).setValue(new Date()); }
   }
 
   if (filaActiva >= 2 && (colActiva == 19) && incidencias.getActiveSheet().getName() == "Respuestas de formulario 1") {
