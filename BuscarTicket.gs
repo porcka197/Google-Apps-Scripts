@@ -5,8 +5,8 @@ function buscarValor() {
   var hojaBuscar = libro.getSheetByName("Respuestas de formulario 1");
   var filaUlt = hojaBuscar.getLastRow();
   var ticket = hoja1.getRange('C62').getValue();
-  var tablaBuscar = hojaBuscar.getRange('F1645:Q'+filaUlt).getValues();
-  
+  var tablaBuscar = hojaBuscar.getRange('F1645:Q' + filaUlt).getValues();
+
   // Logger.log(typeof(ticket));
   // Logger.log(ticket);
   // Logger.log(tablaBuscar);
@@ -15,12 +15,12 @@ function buscarValor() {
   var indice = lista.indexOf(ticket);
   // Logger.log(indice);
 
-  if (typeof(ticket) == "string") {
+  if (typeof (ticket) == "string") {
     SpreadsheetApp.getUi().alert('Debes colocar el número ticket para buscar');
     limpiarDatos2();
   }
 
-  else if (typeof(ticket) == "number") {
+  else if (typeof (ticket) == "number") {
     var solicitud = tablaBuscar[indice][0];
     // Logger.log(solicitud);
     hoja1.getRange('C63:F63').setValue(solicitud);
@@ -30,8 +30,9 @@ function buscarValor() {
     hoja1.getRange('C65:F65').setValue(situacion);
     SpreadsheetApp.getActiveSpreadsheet().toast('Solicitud encontrada');
   }
-  else if (ticket == ""){SpreadsheetApp.getUi().alert('Debes colocar el número ticket para buscar');
-  limpiarDatos2();
+  else if (ticket == "") {
+    SpreadsheetApp.getUi().alert('Debes colocar el número ticket para buscar');
+    limpiarDatos2();
   }
 }
 
